@@ -1,0 +1,77 @@
+<!-- 地图实例实现 -->
+<div class="map">
+    <!-- 地图显示模块 -->
+    <baidu-map [options]="opts" (loaded)="mapLoaded($event)">
+        <marker *ngFor="let marker of markers" [point]="marker.point" [options]="marker.options" (clicked)="showWindow($event)"  (loaded)="markerLoaded($event)"></marker>
+    </baidu-map>
+    <!-- 地图筛选框 -->
+    <div class="map_choose">
+        <select class="map_choose_select01 map_choose_select3">
+            <option>全部场景</option>
+            <option>工厂</option>
+            <option>隧道</option>
+            <option>核电</option>
+            <option>煤电</option>
+        </select>
+        <select class="map_choose_select01 map_choose_select1" id="map_choose_select1"></select>
+        <select class="map_choose_select01 map_choose_select2" id="map_choose_select2"></select>
+        <select class="map_choose_select02 map_choose_select4">
+            <option>全部项目</option>
+            <option>项目1</option>
+            <option>项目2</option>
+        </select>
+    </div>
+</div>
+
+<!-- baidu-map -->
+<!-- <baidu-map [options]="opts" (clicked)="mapClick($event)"></baidu-map> -->
+
+<!-- marker -->
+<!-- <baidu-map [options]="opts">
+  <marker *ngFor="let marker of markers" [point]="marker.point" [options]="marker.options" (clicked)="showWindow($event)"></marker>
+</baidu-map> -->
+
+<!-- polyline -->
+<!-- <baidu-map [options]="opts">
+  <polyline [points]="points" [options]="polylineOptions" (loaded)="polylineLoaded($event)"></polyline>
+</baidu-map> -->
+
+<!-- circle -->
+<!-- <baidu-map [options]="opts">
+  <circle [center]="center" radius="600" [options]="circleOptions" (loaded)="circleLoaded($event)"></circle>
+</baidu-map> -->
+
+<!-- polygon -->
+<!-- <baidu-map [options]="opts">
+  <polygon [points]="points" [options]="polygonOptions" (loaded)="polygonLoaded($event)"></polygon>
+</baidu-map> -->
+
+<!-- heatmap  ????? -->
+<!-- <baidu-map [options]="opts">
+  <heatmap [dataset]="data" [options]="heatmapOptions" (loaded)="heatmapLoaded($event)"></heatmap>
+</baidu-map> -->
+
+<!-- marker-clusterer -->
+<!-- <baidu-map [options]="opts">
+  <marker-clusterer [options]="clustererOptions" (loaded)="markerClustererLoaded($event)"></marker-clusterer>
+</baidu-map> -->
+
+<!-- tilelayer -->
+<!-- <baidu-map [options]="opts">
+  <tilelayer [options]="tilelayerOptions" [getTilesUrl]="getTilesUrl" (loaded)="tilelayerLoaded($event)"></tilelayer>
+</baidu-map> -->
+
+<!-- trafficlayer -->
+<!-- <baidu-map [options]="opts">
+  <trafficlayer [options]="trafficlayerOptions" (loaded)="trafficlayerLoaded($event)"></trafficlayer>
+</baidu-map> -->
+
+<!-- control -->
+<!-- <baidu-map [options]="opts">
+  <control type="navigation" [options]="controlOpts" (loaded)="controlLoaded($event)"></control>
+  <control type="overviewmap" [options]="overviewmapOpts"></control>
+  <control type="scale" [options]="scaleOpts"></control>
+  <control type="maptype" [options]="mapTypeOpts"></control>
+</baidu-map> -->
+
+
