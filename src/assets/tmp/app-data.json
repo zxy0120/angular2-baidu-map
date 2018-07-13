@@ -1,0 +1,27 @@
+{
+  "app": {
+    "name": "Alain",
+    "description": "Ng-zorro admin panel front-end framework"
+  },
+  "user": {
+    "name": "Admin",
+    "avatar": "./assets/tmp/img/avatar.jpg",
+    "email": "zxy@xx.com"
+  },
+  "menu": [
+    {
+      "text": "主导航",
+      "i18n": "main_navigation",
+      "group": true,
+      "hideInBreadcrumb": true,
+      "children": [
+        {
+          "text": "百度地图",
+          "link": "/baidu-map",
+          "i18n": "baidu-map",
+          "icon": "icon-speedometer"
+        }
+      ]
+    }
+  ]
+}
