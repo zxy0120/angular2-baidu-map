@@ -11,6 +11,13 @@ if (environment.production) {
   enableProdMode();
 }
 
+// 热替换
+declare var module: any;
+
+if (module.hot) {
+  module.hot.accept();
+}
+
 const bootstrap = () => {
   return platformBrowserDynamic().bootstrapModule(AppModule, {
     defaultEncapsulation: ViewEncapsulation.Emulated,

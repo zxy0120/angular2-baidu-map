@@ -34,7 +34,8 @@
     "lint:fix": "tslint --fix -c ./tslint.json 'src/app/**/*{.ts,.tsx}'",
     "e2e": "ng e2e",
     "test": "ng test -sr -sm=false",
-    "test-coverage": "ng test -sr -cc -sm=false"
+    "test-coverage": "ng test -sr -cc -sm=false",
+    "dev": "ng serve --o --port 4201 --hmr true --proxy-config proxy.conf.json"
   },
   "dependencies": {
     "@angular/animations": "^6.0.0",

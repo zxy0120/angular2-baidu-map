@@ -119,11 +119,7 @@ export class BaiduMapV1Component implements OnInit, AfterViewInit, OnDestroy {
                     lng: 105.059014,   // 经度
                     lat: 36.812474,    // 纬度
                     zoom: 5           // 缩放级别
-                },
-                minZoom: 4,  // 最小缩放级别的地图
-                maxZoom: 13, // 最大缩放级别的地图
-                disableDragging: false, // 是否禁用地图拖动功能
-                enableScrollWheelZoom: true, // 是否启用滚轮进行缩放功能
+                }
             };
         } else if (selectValue01 === 1 && selectValue02 === 0) {
             if (num !== 0) {
@@ -132,11 +128,7 @@ export class BaiduMapV1Component implements OnInit, AfterViewInit, OnDestroy {
                         lng: 113.11,   // 经度
                         lat: 23.05,    // 纬度
                         zoom: 6           // 缩放级别
-                    },
-                    minZoom: 4,  // 最小缩放级别的地图
-                    maxZoom: 13, // 最大缩放级别的地图
-                    disableDragging: false, // 是否禁用地图拖动功能
-                    enableScrollWheelZoom: true, // 是否启用滚轮进行缩放功能
+                    }
                 };
             } else {
                 this.opts = {
@@ -144,11 +136,7 @@ export class BaiduMapV1Component implements OnInit, AfterViewInit, OnDestroy {
                         lng: 105.059014,   // 经度
                         lat: 36.812474,    // 纬度
                         zoom: 5           // 缩放级别
-                    },
-                    minZoom: 4,  // 最小缩放级别的地图
-                    maxZoom: 13, // 最大缩放级别的地图
-                    disableDragging: false, // 是否禁用地图拖动功能
-                    enableScrollWheelZoom: true, // 是否启用滚轮进行缩放功能
+                    }
                 };
             }
         } else if (selectValue01 === 1 && selectValue02 === 2) {
@@ -158,11 +146,7 @@ export class BaiduMapV1Component implements OnInit, AfterViewInit, OnDestroy {
                         lng: 113.11,   // 经度
                         lat: 23.05,    // 纬度
                         zoom: 7           // 缩放级别
-                    },
-                    minZoom: 4,  // 最小缩放级别的地图
-                    maxZoom: 13, // 最大缩放级别的地图
-                    disableDragging: false, // 是否禁用地图拖动功能
-                    enableScrollWheelZoom: true, // 是否启用滚轮进行缩放功能
+                    }
                 };
             } else {
                 this.opts = {
@@ -170,11 +154,7 @@ export class BaiduMapV1Component implements OnInit, AfterViewInit, OnDestroy {
                         lng: 105.059014,   // 经度
                         lat: 36.812474,    // 纬度
                         zoom: 5           // 缩放级别
-                    },
-                    minZoom: 4,  // 最小缩放级别的地图
-                    maxZoom: 13, // 最大缩放级别的地图
-                    disableDragging: false, // 是否禁用地图拖动功能
-                    enableScrollWheelZoom: true, // 是否启用滚轮进行缩放功能
+                    }
                 };
             }
         } else {
@@ -183,11 +163,7 @@ export class BaiduMapV1Component implements OnInit, AfterViewInit, OnDestroy {
                     lng: 105.059014,   // 经度
                     lat: 36.812474,    // 纬度
                     zoom: 5           // 缩放级别
-                },
-                minZoom: 4,  // 最小缩放级别的地图
-                maxZoom: 13, // 最大缩放级别的地图
-                disableDragging: false, // 是否禁用地图拖动功能
-                enableScrollWheelZoom: true, // 是否启用滚轮进行缩放功能
+                }
             };
         }
         if (num !== 0) {
