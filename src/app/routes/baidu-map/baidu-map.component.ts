@@ -8,7 +8,7 @@ declare var $: any;
 declare var addressInit: any;
 
 import { 
-    MapOptions, MapTypeEnum, MarkerClustererOptions, Marker, BMarkerClusterer, TileLayerOptions, getTilesUrlFunc, BTileLayer, TrafficLayerOptions, BTrafficLayer,
+    MapOptions, MapTypeEnum, PolylineOptions, BPolyline, CircleOptions, BCircle, PolygonOptions, BPolygon, HeatmapData, HeatmapOptions, BHeatmap, MarkerClustererOptions, Marker, BMarkerClusterer, TileLayerOptions, getTilesUrlFunc, BTileLayer, TrafficLayerOptions, BTrafficLayer,
     NavigationControlOptions, OverviewMapControlOptions, ScaleControlOptions, MapTypeControlOptions, ControlAnchor, NavigationControlType, MapTypeControlType, BNavigationControl,
     MarkerOptions, Point } from 'angular2-baidu-map';
 
@@ -23,7 +23,6 @@ export class BaiduMapV1Component implements OnInit, AfterViewInit, OnDestroy {
     public opts: MapOptions;
     public markers: Array<{ point: Point; options?: MarkerOptions }>;
     private headers = new Headers({ 'Content-Type': 'application/json '});
-    private timer01;
     constructor(
         private http: Http,
     ) {
@@ -43,20 +42,16 @@ export class BaiduMapV1Component implements OnInit, AfterViewInit, OnDestroy {
     ngAfterViewInit() {
         addressInit('map_choose_select1', 'map_choose_select2', '全部省', '全部市');
 
-        // 更新地图
-        const tag01 = () => {
-            this.getData();
-        };
-        this.timer01 = setInterval(() => {
-                tag01(); // 初始化地图
-                const selectName = ['.map_choose_select1', '.map_choose_select2', '.map_choose_select3', '.map_choose_select4'];
-                for (let i = 0; i < selectName.length; i ++) {
-                    $(selectName[i]).change(function() {
-                        tag01();
-                    });
-                }
-                clearInterval(this.timer01);
-        }, 50);
+        // 初始化地图
+        this.getData();
+
+        // 监听下拉框
+        const selectName = ['.map_choose_select1', '.map_choose_select2', '.map_choose_select3', '.map_choose_select4'];
+        for (let i = 0; i < selectName.length; i ++) {
+            $(selectName[i]).change(() => {
+                this.getData();
+            });
+        }
     }
     // 地图筛选功能获取数据
     private getData(): void {
@@ -87,11 +82,11 @@ export class BaiduMapV1Component implements OnInit, AfterViewInit, OnDestroy {
             selectValue04 = 2;
         }
         if ((selectValue03 === null || selectValue03 === '工厂') && ((selectValue01 === null && selectValue02 === null) || (selectValue01 === '广东省' && selectValue02 === null) || (selectValue01 === '广东省' && selectValue02 === '佛山市'))) {
-            if (selectValue04 == 1) {
+            if (selectValue04 === 1) {
                 this.showMap(3);
-            } else if (selectValue04 == 2)  {
+            } else if (selectValue04 === 2)  {
                 this.showMap(1);
-            } else if (selectValue04 == 'all')  {
+            } else if (selectValue04 === 'all')  {
                 this.showMap(4);
             }
         } else {
@@ -100,7 +95,6 @@ export class BaiduMapV1Component implements OnInit, AfterViewInit, OnDestroy {
     }
     // 显示地图
     private showMap(num) {
-        const markers = [];
         let selectValue01 = 0;
         let selectValue02 = 0;
         if ($('.map_choose_select1').children('option:selected').val() === '全部省') {
@@ -201,6 +195,7 @@ export class BaiduMapV1Component implements OnInit, AfterViewInit, OnDestroy {
         );
     }
     public mapLoaded(map: any): void {
+        // 去掉高速和地铁线
         map.setMapStyle({
             styleJson: [
                 {
@@ -221,12 +216,13 @@ export class BaiduMapV1Component implements OnInit, AfterViewInit, OnDestroy {
         });
     }
     public markerLoaded(marker: any): void {
+        // 给标注增加数字显示label,包括的鼠标悬停事件
         const label = new window.BMap.Label(marker.getTitle());
         label.setStyle({ // 给label设置样式，任意的CSS都是可以的,
             color: '#fff',
             fontSize: '16px',
             border: 'none',
-            width: '40px',
+            width: '40px', 
             height: '40px',
             textAlign: 'center',
             lineHeight: '40px',
@@ -235,36 +231,20 @@ export class BaiduMapV1Component implements OnInit, AfterViewInit, OnDestroy {
         });
         marker.setLabel(label);
         marker.addEventListener('mouseover', function() {
-            label.setStyle({ // 给label设置样式，任意的CSS都是可以的,
-                color: '#fff',
-                fontSize: '16px',
-                border: 'none',
-                width: '40px',
-                height: '40px',
-                textAlign: 'center',
-                lineHeight: '40px',
-                background: 'url(../../../../assets/images/bg_labelRegular_click.png) no-repeat',
-                cursor: 'pointer',
+            label.setStyle({
+                background: 'url(../../../../assets/images/bg_labelRegular_click.png) no-repeat'
             });
         });
         marker.addEventListener('mouseout', function() {
-            label.setStyle({ // 给label设置样式，任意的CSS都是可以的,
-                color: '#fff',
-                fontSize: '16px',
-                border: 'none',
-                width: '40px',
-                height: '40px',
-                textAlign: 'center',
-                lineHeight: '40px',
-                background: 'transparent',
-                cursor: 'pointer',
+            label.setStyle({
+                background: 'transparent'
             });
         });
     }
     ngOnDestroy(): void {
-        if (this.timer01) {
-            clearInterval(this.timer01);
-        }
+        // if (this.timer01) {
+        //     clearInterval(this.timer01);
+        // }
     }
     
     // // baidu-map
@@ -286,7 +266,7 @@ export class BaiduMapV1Component implements OnInit, AfterViewInit, OnDestroy {
 
     // // marker
     // public opts: MapOptions;
-    // public markers: Array<{ point: any; options?: any }>;
+    // public markers: Array<{ point: Point; options?: MarkerOptions }>;
     // constructor() {
     //   this.opts = {
     //     centerAndZoom: {
@@ -335,8 +315,8 @@ export class BaiduMapV1Component implements OnInit, AfterViewInit, OnDestroy {
 
     // // polyline
     // public opts: MapOptions;
-    // public points: Array<any>;
-    // public polylineOptions: any;
+    // public points: Array<Point>;
+    // public polylineOptions: PolylineOptions;
     // constructor() {
     //   this.opts = {
     //     centerAndZoom: {
@@ -362,14 +342,14 @@ export class BaiduMapV1Component implements OnInit, AfterViewInit, OnDestroy {
     //     strokeWeight: 2
     //   };
     // }
-    // public polylineLoaded(polyline: any): void {
+    // public polylineLoaded(polyline: BPolyline): void {
     //   console.log('polyline loaded', polyline);
     // }
 
     // // circle
     // public opts: MapOptions;
-    // public center: any;
-    // public circleOptions: any;
+    // public center: Point;
+    // public circleOptions: CircleOptions;
     // constructor() {
     //   this.opts = {
     //     centerAndZoom: {
@@ -387,14 +367,14 @@ export class BaiduMapV1Component implements OnInit, AfterViewInit, OnDestroy {
     //     strokeWeight: 2
     //   };
     // }
-    // public circleLoaded(circle: any): void {
+    // public circleLoaded(circle: BCircle): void {
     //   console.log('circle loaded', circle);
     // }
 
     // // polygon
     // public opts: MapOptions;
-    // public points: Array<any>;
-    // public polygonOptions: any;
+    // public points: Array<Point>;
+    // public polygonOptions: PolygonOptions;
     // constructor() {
     //   this.opts = {
     //     centerAndZoom: {
@@ -424,14 +404,14 @@ export class BaiduMapV1Component implements OnInit, AfterViewInit, OnDestroy {
     //     strokeWeight: 2
     //   };
     // }
-    // public polygonLoaded(polygon: any): void {
+    // public polygonLoaded(polygon: BPolygon): void {
     //   console.log('polygon loaded', polygon);
     // }
 
     // // heatmap
     // public opts: MapOptions;
-    // public data: any;
-    // public heatmapOptions: any;
+    // public data: HeatmapData;
+    // public heatmapOptions: HeatmapOptions;
     // constructor() {
     //   this.opts = {
     //     centerAndZoom: {
@@ -460,7 +440,7 @@ export class BaiduMapV1Component implements OnInit, AfterViewInit, OnDestroy {
     //     visible: true
     //   };
     // }
-    // public heatmapLoaded(heatmap: any): void {
+    // public heatmapLoaded(heatmap: BHeatmap): void {
     //   console.log('heatmap loaded', heatmap);
     // }
 
